@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1366.0" style="-fx-background-color: #e9f6fc;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ListerProfesseurController">
+   <children>
+      <Label layoutX="100.0" layoutY="53.0" text="Numero:">
+         <font>
+            <Font name="Cambria" size="48.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_numeroFilter" layoutX="309.0" layoutY="66.0" prefHeight="43.0" prefWidth="205.0" />
+      <Button fx:id="btn_ok" layoutX="550.0" layoutY="59.0" mnemonicParsing="false" onAction="#handleSearchProfesseur" prefHeight="45.0" prefWidth="87.0" style="-fx-background-color: #18b762;" text="OK">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
+      <DatePicker fx:id="txt_anneFilter" layoutX="840.0" layoutY="203.0" onAction="#handleanneFilter" prefHeight="45.0" prefWidth="396.0" />
+      <TableView fx:id="tv_Professeur" layoutX="94.0" layoutY="304.0" prefHeight="456.0" prefWidth="492.0">
+        <columns>
+          <TableColumn fx:id="tv_nom" prefWidth="229.0" text="Nom" />
+          <TableColumn fx:id="tv_prenom" prefWidth="259.0" text="Prenom" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tv_classe" layoutX="748.0" layoutY="299.0" prefHeight="456.0" prefWidth="492.0">
+         <columns>
+            <TableColumn fx:id="tv_classeLibelle" prefWidth="491.0" text="Classe" />
+         </columns>
+      </TableView>
+      <Pane layoutX="120.0" layoutY="209.0" prefHeight="56.0" prefWidth="438.0" style="-fx-border-color: #515151; -fx-background-image: #21e1cb;">
+         <children>
+            <Label layoutX="100.0" layoutY="-9.0" text="Professeur">
+               <font>
+                  <Font name="Cambria Bold Italic" size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label layoutX="638.0" layoutY="192.0" text="Année">
+         <font>
+            <Font name="Cambria" size="48.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmb_classeFilter" layoutX="841.0" layoutY="137.0" onAction="#handleClassFilter" prefHeight="45.0" prefWidth="396.0" />
+      <Label layoutX="638.0" layoutY="124.0" text="Classe">
+         <font>
+            <Font name="Cambria" size="48.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
