@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -23,6 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import modeles.Classe;
 import modeles.Detail;
 import modeles.Professeur;
+import services.FunctionController;
 import services.GestionClasse;
 import services.GestionProf;
 import services.ServiceDetail;
@@ -39,8 +41,6 @@ public class ListerProfesseurController implements Initializable {
     @FXML
     private Button btn_ok;
     @FXML
-    private DatePicker txt_anneFilter;
-    @FXML
     private TableColumn<Professeur, String> tv_nom;
     @FXML
     private TableColumn<Professeur, String> tv_prenom;
@@ -52,6 +52,9 @@ public class ListerProfesseurController implements Initializable {
     private TableView<Professeur> tv_Professeur;
     @FXML
     private TableColumn<Classe, String> tv_classeLibelle;
+    private String nameController=null;
+    FunctionController function= new FunctionController();
+
     GestionProf gp=new GestionProf();       
     GestionClasse gc=new GestionClasse();   
 
@@ -66,6 +69,20 @@ public class ListerProfesseurController implements Initializable {
     Detail d2=new Detail(2018, p, c2);
     
     ServiceDetail sd= new ServiceDetail();
+    @FXML
+    private Button btn_home;
+    @FXML
+    private Button btn_Gestion_Classe;
+    @FXML
+    private Button btn_GestionProf;
+    @FXML
+    private Button btn_List_prof;
+    @FXML
+    private Button btn_G_Etudiant;
+    @FXML
+    private TextField txt_anneeFilter;
+    @FXML
+    private Button btn_exit;
     
 
 
@@ -113,12 +130,6 @@ public class ListerProfesseurController implements Initializable {
 
     }
 
-    @FXML
-    private void handleanneFilter(ActionEvent event) {
-
-        
-        
-    }
 
     @FXML
     private void handleClassFilter(ActionEvent event) {
@@ -134,5 +145,42 @@ public class ListerProfesseurController implements Initializable {
 
         }  
     }
+
+
+    @FXML
+    private void handlechangeViewHome(ActionEvent event) throws IOException {
+        nameController="Main";
+        function.changeViews(btn_home, nameController);
+    }
+
+    @FXML
+    private void handlechangeViewClasse(ActionEvent event) throws IOException {
+         nameController="GestionClasse";
+         function.changeViews(btn_Gestion_Classe, nameController);
+    }
+
+    @FXML
+    private void handleChangeViewProfesseur(ActionEvent event) throws IOException {
+         nameController="GestionProfesseur";     
+         function.changeViews(btn_GestionProf, nameController);
+    }
+
+    @FXML
+    private void handleChangeViewListe(ActionEvent event) throws IOException {
+         nameController="ListerProfesseur";     
+         function.changeViews(btn_List_prof, nameController);
+    }
+
+    @FXML
+    private void handleChangeViewEtudiant(ActionEvent event) throws IOException {
+         nameController="GestionEtudiant";     
+         function.changeViews(btn_G_Etudiant, nameController);
+    }
+    @FXML
+    private void handleExit(ActionEvent event) throws IOException {
+        function.closeWindow(btn_exit);
+    }
+
+
     }
     

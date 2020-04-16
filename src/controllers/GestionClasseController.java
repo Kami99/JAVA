@@ -5,19 +5,27 @@
  */
 package controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import modeles.Classe;
+import services.FunctionController;
 import services.GestionClasse;
 
 /**
@@ -33,10 +41,26 @@ public class GestionClasseController implements Initializable {
     @FXML
     private TableColumn<Classe, String> tv_libelle;
     @FXML
-    private Button btn_ajouter;
-    @FXML
     private TextField txt_libelle;
     GestionClasse gc = new GestionClasse();
+    @FXML
+    private Button btn_home;
+    private String nameController=null;
+
+    FunctionController function= new FunctionController();
+    @FXML
+    private Button btn_ajouter;
+    @FXML
+    private Button btn_GestionProf;
+    @FXML
+    private Button btn_List_prof;
+    @FXML
+    private Button btn_G_Etudiant;
+    @FXML
+    private Button btn_exit;
+    @FXML
+    private Button btn_GC;
+
 
     
 
@@ -80,5 +104,43 @@ public class GestionClasseController implements Initializable {
         tv_classe.refresh();
         
     }
+
+    @FXML
+    private void handlechangeViewHome(ActionEvent event) throws IOException {
+        nameController="Main";
+        function.changeViews(btn_home, nameController);
+    }
+
+    @FXML
+    private void handlechangeViewClasse(ActionEvent event) throws IOException {
+         nameController="GestionClasse";
+         function.changeViews(btn_GC, nameController);
+    }
+
+    @FXML
+    private void handleChangeViewProfesseur(ActionEvent event) throws IOException {
+         nameController="GestionProfesseur";     
+         function.changeViews(btn_GestionProf, nameController);
+    }
+
+    @FXML
+    private void handleChangeViewListe(ActionEvent event) throws IOException {
+         nameController="ListerProfesseur";     
+         function.changeViews(btn_List_prof, nameController);
+    }
+
+    @FXML
+    private void handleChangeViewEtudiant(ActionEvent event) throws IOException {
+         nameController="GestionEtudiant";     
+         function.changeViews(btn_G_Etudiant, nameController);
+    }
+
+    @FXML
+    private void handleExit(ActionEvent event) throws IOException {
+            function.closeWindow(btn_exit);
+    }
+
+
+
     
 }

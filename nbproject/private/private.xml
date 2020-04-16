@@ -3,12 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/BETOE%20CHARLENE/Documents/NetBeansProjects/EtudiantsManageApp/src/services/ServiceDetail.java</file>
-            <file>file:/C:/Users/BETOE%20CHARLENE/Documents/NetBeansProjects/EtudiantsManageApp/src/modeles/Professeur.java</file>
-            <file>file:/C:/Users/BETOE%20CHARLENE/Documents/NetBeansProjects/EtudiantsManageApp/src/controllers/ListerProfesseurController.java</file>
-            <file>file:/C:/Users/BETOE%20CHARLENE/Documents/NetBeansProjects/EtudiantsManageApp/src/controllers/GestionClasseController.java</file>
+            <file>file:/C:/Users/BETOE%20CHARLENE/Documents/NetBeansProjects/EtudiantsManageApp/src/modeles/Etudiant.java</file>
+            <file>file:/C:/Users/BETOE%20CHARLENE/Documents/NetBeansProjects/EtudiantsManageApp/src/modeles/Inscription.java</file>
+            <file>file:/C:/Users/BETOE%20CHARLENE/Documents/NetBeansProjects/EtudiantsManageApp/src/views/Main.fxml</file>
+            <file>file:/C:/Users/BETOE%20CHARLENE/Documents/NetBeansProjects/EtudiantsManageApp/src/modeles/Detail.java</file>
+            <file>file:/C:/Users/BETOE%20CHARLENE/Documents/NetBeansProjects/EtudiantsManageApp/src/modeles/Personne.java</file>
             <file>file:/C:/Users/BETOE%20CHARLENE/Documents/NetBeansProjects/EtudiantsManageApp/src/application/Main.java</file>
-            <file>file:/C:/Users/BETOE%20CHARLENE/Documents/NetBeansProjects/EtudiantsManageApp/src/services/IDetail.java</file>
         </group>
     </open-files>
 </project-private>
