@@ -33,8 +33,14 @@
             <Font name="Cambria" size="36.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_nom" layoutX="364.0" layoutY="260.0" prefHeight="13.0" prefWidth="167.0" />
-      <Pane layoutX="231.0" layoutY="183.0" prefHeight="196.0" prefWidth="479.0" style="-fx-border-color: #535353;" />
+      <Pane layoutX="231.0" layoutY="183.0" prefHeight="196.0" prefWidth="479.0" style="-fx-border-color: #535353;">
+         <children>
+            <Button fx:id="btn_searchProf" layoutX="363.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="33.0" prefWidth="102.0" style="-fx-background-radius: 10px;" text="RECHERCHEZ">
+               <font>
+                  <Font name="Candara" size="14.0" />
+               </font>
+            </Button>
+         </children></Pane>
       <Label layoutX="236.0" layoutY="108.0" text="Gestion Professeurs" underline="true">
          <font>
             <Font name="Cambria Bold Italic" size="50.0" />
@@ -50,6 +56,7 @@
             <Font name="Cambria" size="36.0" />
          </font>
       </Label>
+      <TextField fx:id="txt_nom" layoutX="364.0" layoutY="260.0" prefHeight="13.0" prefWidth="167.0" />
       <TextField fx:id="txt_numero" layoutX="408.0" layoutY="308.0" prefHeight="16.0" prefWidth="153.0" />
       <TextField fx:id="txt_prenom" layoutX="417.0" layoutY="216.0" prefHeight="16.0" prefWidth="167.0" />
       <ComboBox fx:id="cmb_classe" layoutX="1034.0" layoutY="199.0" prefHeight="26.0" prefWidth="163.0" />

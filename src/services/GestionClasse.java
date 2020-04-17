@@ -5,6 +5,7 @@
  */
 package services;
 
+import dao.ClasseDao;
 import java.util.ArrayList;
 import modeles.Classe;
 
@@ -12,18 +13,20 @@ import modeles.Classe;
  *
  * @author hp
  */
-public class GestionClasse implements IGestionClasse {
-    ArrayList<Classe> bd = new ArrayList<>();
+public class GestionClasse {
+    private ClasseDao classeDao;
 
-    @Override
-    public Classe addClasse(Classe c) {
-        bd.add(c);
-        return c;
+    public GestionClasse() {
+                classeDao=new ClasseDao();
     }
 
-    @Override
+    public int addClasse(Classe c) {
+        classeDao.create(c);
+        return 1;
+    }
+
     public ArrayList<Classe> listerCLasse() {
-        return bd;
+        return classeDao.selectAll();
     }
     
 }

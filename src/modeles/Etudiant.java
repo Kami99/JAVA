@@ -15,6 +15,8 @@ public class Etudiant extends Personne{
 
     public Etudiant(String nom, String prenom, String numero) {
         super(nom, prenom, numero);
+        this.category="Etudiant";
+        
     }
 
     /**

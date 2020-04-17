@@ -13,12 +13,12 @@ import java.util.ArrayList;
  */
 public class Professeur extends Personne{
     public String grade;
-    public ArrayList<Classe> classeEns;
     public ArrayList<Detail> details;
     public Professeur() {
     }
     public Professeur(String nom, String prenom, String numero) {
         super(nom, prenom, numero);
+        this.category="Professeur";
     }
 
 
@@ -45,16 +45,7 @@ public class Professeur extends Personne{
     /**
      * @return the classeEns
      */
-    public ArrayList<Classe> getClasseEns() {
-        return classeEns;
-    }
 
-    /**
-     * @param classeEns the classeEns to set
-     */
-    public void setClasseEns(ArrayList<Classe> classeEns) {
-        this.classeEns = classeEns;
-    }
 
     /**
      * @return the details
@@ -73,6 +64,10 @@ public class Professeur extends Personne{
         this.details = details;
     }
      public String toString() {
-        return  "numero= " + numero + " nom=" + nom + " prenom=" + prenom;
+        return  "numero= " + numero + " nom=" + nom + " prenom=" + prenom+ " Category = "+category;
     }   
+
+    public void setCategory(String category) {
+        this.category=category;
+    }
 }

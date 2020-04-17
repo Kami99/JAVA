@@ -19,7 +19,9 @@ public interface IDetail {
     public Detail addDetail(Detail d);    
     public  ArrayList<Detail> listerDetail();
     public ArrayList<Professeur> rechercherProf(String classe);   
-    public ArrayList<Professeur> rechercherProf(int Annee);
+    public ArrayList<Professeur> rechercherProf(int Annee);   
+    public ArrayList<Professeur> rechercherProf(int Annee, String classe);
+
 
 
     

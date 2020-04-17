@@ -15,10 +15,22 @@ import java.time.LocalDate;
 public class Personne {
     public int id; 
     public String numero;
-    public String nom;     
+    public String nom;  
+    public String category;     
+    
    
     public String prenom;
-    public LocalDate dateNaissance;
+    public LocalDate dateNaissance;  
+    public boolean statement=true;
+
+    public boolean isStatement() {
+        return statement;
+    }
+
+    public void setStatement(boolean statement) {
+        this.statement = statement;
+    }
+
         public Personne(String nom, String prenom, String numero) {
         this.nom = nom;
         this.prenom = prenom;
@@ -101,7 +113,6 @@ public class Personne {
     public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
-
 
 
     

@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import dao.ClasseDao;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -55,18 +56,17 @@ public class ListerProfesseurController implements Initializable {
     private String nameController=null;
     FunctionController function= new FunctionController();
 
-    GestionProf gp=new GestionProf();       
-    GestionClasse gc=new GestionClasse();   
+    GestionProf gp=new GestionProf();    
+    GestionProf gp1=new GestionProf();       
+    GestionClasse gc=new GestionClasse();
+    ClasseDao classeDao=new ClasseDao();   
+   
 
     Professeur p=new Professeur("Karim", "Ndong", "4");  
     Professeur p2=new Professeur("lacrim", "Algerien", "14");  
     Professeur p3=new Professeur("Niro", "92i", "8");
-    
-    Classe c=new Classe("MAE");      
-    Classe c1=new Classe("KOL");  
-    Classe c2=new Classe("OVB");  
-    Detail d1=new Detail(2017, p, c1);    
-    Detail d2=new Detail(2018, p, c2);
+
+
     
     ServiceDetail sd= new ServiceDetail();
     @FXML
@@ -83,6 +83,8 @@ public class ListerProfesseurController implements Initializable {
     private TextField txt_anneeFilter;
     @FXML
     private Button btn_exit;
+    @FXML
+    private Button btn_filter;
     
 
 
@@ -94,14 +96,6 @@ public class ListerProfesseurController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     ObservableList<Professeur> donneeProfesseur = FXCollections.observableArrayList();
-    sd.addDetail(d1);    
-    sd.addDetail(d1);
-    gc.addClasse(c);    
-    gc.addClasse(c1);
-    gc.addClasse(c2);
-    gp.addProfesseur(p);  
-    gp.addProfesseur(p2);
-    gp.addProfesseur(p3);
         for (Classe classe : gc.listerCLasse()) {
                     cmb_classeFilter.getItems().add(classe.getLibelle());
         }
@@ -136,14 +130,20 @@ public class ListerProfesseurController implements Initializable {
        ObservableList<Professeur> donneeProfesseur = FXCollections.observableArrayList();
        ArrayList<Professeur> pList= new ArrayList<>();
         String classe= cmb_classeFilter.getValue();
-        ArrayList<Professeur> resultProf = sd.rechercherProf(classe);
+        ArrayList<Professeur> resultProf = gp1.filterByclasse(classe);
+        System.out.println("Ici resul "+resultProf);
         if(resultProf!=null){
             donneeProfesseur.addAll(resultProf);
             tv_Professeur.setItems(donneeProfesseur);
             tv_Professeur.refresh();
             System.out.println(resultProf);
 
-        }  
+        } 
+
+    }
+    
+    @FXML
+    private void handleFilterYear(ActionEvent event) {
     }
 
 
@@ -180,6 +180,7 @@ public class ListerProfesseurController implements Initializable {
     private void handleExit(ActionEvent event) throws IOException {
         function.closeWindow(btn_exit);
     }
+
 
 
     }

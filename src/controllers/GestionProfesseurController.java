@@ -64,6 +64,8 @@ public class GestionProfesseurController implements Initializable {
     private Button btn_exit;
     private String nameController=null;
     FunctionController function= new FunctionController();
+    @FXML
+    private Button btn_searchProf;
 
 
 
@@ -113,6 +115,10 @@ public class GestionProfesseurController implements Initializable {
     @FXML
     private void handleExit(ActionEvent event) throws IOException {
         function.closeWindow(btn_exit);
+    }
+
+    @FXML
+    private void handleSearch(ActionEvent event) {
     }
 
     

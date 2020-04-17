@@ -73,10 +73,6 @@ public class GestionClasseController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<Classe> donnee = FXCollections.observableArrayList();
-        Classe classe = new Classe("MAE 3");
-        Classe classe2 = new Classe("TTL 3");
-        gc.addClasse(classe); 
-        gc.addClasse(classe2); 
         // TODO
               
         tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -84,25 +80,21 @@ public class GestionClasseController implements Initializable {
         donnee.addAll(gc.listerCLasse());
         tv_classe.setItems(donnee);
         tv_classe.refresh();
-        System.out.println(gc.listerCLasse());
-        System.out.println(tv_classe.getItems());
+
+
     }
     @FXML
     private void handleAjouterClasse(ActionEvent event) { 
-        ObservableList<Classe> donnee = FXCollections.observableArrayList();
+        /*ObservableList<Classe> donnee = FXCollections.observableArrayList();
         System.out.println("classe ajout");
-        String libelle = txt_libelle.getText();
-        
-        System.out.println(gc.listerCLasse());
-        
+        String libelle = txt_libelle.getText();        
         Classe classe = new Classe(libelle);
         gc.addClasse(classe);
-        System.out.println(gc.listerCLasse());
-        
-        donnee.addAll(gc.listerCLasse());
-        tv_classe.setItems(donnee);
+        donnee.addAll(gc.listerCLasse());*/
+        System.out.println(gc.listerCLasse().size());
+        /*tv_classe.setItems(donnee);
         tv_classe.refresh();
-        
+        */
     }
 
     @FXML

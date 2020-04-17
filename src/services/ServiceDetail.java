@@ -62,5 +62,23 @@ public class ServiceDetail implements IDetail {
         
   
     }
+
+    @Override
+    public ArrayList<Professeur> rechercherProf(int annee, String classe) {
+        ArrayList<Professeur> p = new ArrayList<>();
+        for(Detail d: bd){
+            if(d.getAnnee() == annee || d.getClasse().getLibelle().equals(classe) == true) {
+                 p.add(d.getProf());
+            }
+         }
+        if(p.isEmpty()){
+           return null;
+        }
+        else{
+        return p;
+        }
+        
+        
+    }
     
 }

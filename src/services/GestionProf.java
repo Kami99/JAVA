@@ -5,6 +5,7 @@
  */
 package services;
 
+import dao.ProfDao;
 import java.util.ArrayList;
 import modeles.Classe;
 import modeles.Detail;
@@ -15,19 +16,18 @@ import modeles.Professeur;
  * @author hp
  */
 public class GestionProf implements IGestionProf {
-    ArrayList<Professeur> bd = new ArrayList<>();
+        private ProfDao profDao;
+
+    public GestionProf() {
+                profDao=new ProfDao();
+
+    }
 
     @Override
     public Professeur rechercherProf(String numero) {
-        for(Professeur p: bd){
-            if(p.getNumero().compareTo(numero) == 0){
-                return p;
-            }
-        }
-        return null;
+        return profDao.selectBy(numero);
     }
     public Professeur addProfesseur(Professeur p) {
-        bd.add(p);
         return p;
     }
 
@@ -40,6 +40,10 @@ public class GestionProf implements IGestionProf {
    
     
     public ArrayList<Professeur> listerProfs(){
-        return bd;
+        return profDao.selectAll();
+    }
+        
+    public ArrayList<Professeur> filterByclasse(String classe){
+        return profDao.selectByCLasse(classe);
     }
 }

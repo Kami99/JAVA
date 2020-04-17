@@ -12,12 +12,26 @@ import java.util.ArrayList;
  * @author BETOE CHARLENE
  */
 public class Classe {
-    public int id;
-    public String libelle;
+    private int id;
+    private String libelle;
+    private boolean statement=true;
+
+    public boolean isStatement() {
+        return statement;
+    }
+
+    public void setStatement(boolean statement) {
+        this.statement = statement;
+    }
+    
     protected ArrayList<Inscription> inscriptions;
 
     public Classe(String libelle) {
         this.libelle = libelle;
+        
+    }
+
+    public Classe() {
     }
 
     @Override
