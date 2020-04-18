@@ -24,7 +24,8 @@ public class ProfDao  implements IDao<Professeur, Classe> {
 private final String SQL_ALL="SELECT * FROM `person` WHERE `category` = \"Professeur\"";
 private final String SQL_INSERT="INSERT INTO `class` (`wording`, `statement`) VALUES ( ?, ?);";
 private final String SQL_BY="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `numero` = ? ";
-private final String SQL_CLASS_FILTER="SELECT `firstname`, `lastname`, `category`, `wording` FROM `person`, `detail`, `class` WHERE 1 = class.id";     
+private final String SQL_CLASS_FILTER="SELECT `firstname`, `lastname`, `category`, `grade` , `numero` FROM `person`, `detail` WHERE ? = detail.class_id ";     
+private final String SQL_ANNEE_FILTER="SELECT `firstname`, `lastname`, `category`, `grade` , `numero` FROM `person`, `detail` WHERE `year` = ? AND detail.prof_id=person.id";     
 private final String SQL_ID="SELECT * FROM `person` WHERE `id` = ? ";
 private ClasseDao classeDao;
     private MysqlDB mysql;
@@ -34,13 +35,6 @@ private ClasseDao classeDao;
         classeDao=new ClasseDao();
         mysql=new MysqlDB();
     }
-
-
-
-
-
-ArrayList<Professeur> profs = new ArrayList<>();
-
     @Override
     public int create(Professeur obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -63,9 +57,10 @@ ArrayList<Professeur> profs = new ArrayList<>();
 
     @Override
     public ArrayList<Professeur> selectAll() {
+     ArrayList<Professeur> profs=null;
           try {
-        mysql.initPS(SQL_ALL);
-       
+     profs=new ArrayList<Professeur>(); 
+        mysql.initPS(SQL_ALL);       
        ResultSet rs =mysql.executeSelect();
         while(rs.next()){
             Professeur pr= new Professeur();
@@ -80,7 +75,8 @@ ArrayList<Professeur> profs = new ArrayList<>();
     } catch (SQLException ex) {
         Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
     }
-        return profs;
+                  return profs;
+
     }
 
     @Override
@@ -93,10 +89,10 @@ ArrayList<Professeur> profs = new ArrayList<>();
                 if(rs.first()){
                     pr.setId(rs.getInt("id"));         
                     pr.setNom(rs.getString("firstname"));   
-                    pr.setPrenom(rs.getString("firstname"));     
+                    pr.setPrenom(rs.getString("lastname"));     
                     pr.setNumero(rs.getString("numero"));  
                     pr.setGrade(rs.getString("grade"));  
-                    pr.setCategory(rs.getString("grade"));
+                    pr.setCategory(rs.getString("category"));
                 }
                 if(pr!=null){
                     return pr;
@@ -118,7 +114,7 @@ ArrayList<Professeur> profs = new ArrayList<>();
                 if(rs.first()){
                     pr.setId(rs.getInt("id"));         
                     pr.setNom(rs.getString("firstname"));   
-                    pr.setPrenom(rs.getString("firstname"));     
+                    pr.setPrenom(rs.getString("lastname"));     
                     pr.setNumero(rs.getString("numero"));  
                     pr.setGrade(rs.getString("grade"));  
                     pr.setCategory(rs.getString("category"));
@@ -133,13 +129,29 @@ ArrayList<Professeur> profs = new ArrayList<>();
     }
 
     @Override
-    public Professeur selectBy(String classe, int annee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Professeur selectBy(int annee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Professeur> selectBy(int annee) {
+        ArrayList<Professeur> profs=null;
+          try {
+                profs=new ArrayList<Professeur>(); 
+                mysql.initPS(SQL_ANNEE_FILTER);
+                mysql.getPstm().setInt(1, annee);
+                ResultSet rs=mysql.executeSelect();
+                while(rs.next()){
+                   Professeur pr= new Professeur();
+                    pr.setNom(rs.getString("firstname"));   
+                    pr.setPrenom(rs.getString("lastname"));     
+                    pr.setNumero(rs.getString("numero"));  
+                    pr.setGrade(rs.getString("grade"));  
+                    pr.setCategory(rs.getString("category"));
+                    profs.add(pr);
+                }
+                return profs;           
+            } catch (SQLException ex) {
+                Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        
+      return null;
+    
     }
 
     @Override
@@ -147,6 +159,25 @@ ArrayList<Professeur> profs = new ArrayList<>();
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     public ArrayList<Professeur>selectByCLasse( String classe) {
+    ArrayList<Professeur> profs=null;
+          try {
+     profs=new ArrayList<Professeur>(); 
+                mysql.initPS(SQL_CLASS_FILTER);
+                mysql.getPstm().setInt(1, classeDao.selectBy(classe).getId());
+                ResultSet rs=mysql.executeSelect();
+                while(rs.next()){
+                   Professeur pr= new Professeur();
+                    pr.setNom(rs.getString("firstname"));   
+                    pr.setPrenom(rs.getString("lastname"));     
+                    pr.setNumero(rs.getString("numero"));  
+                    pr.setGrade(rs.getString("grade"));  
+                    pr.setCategory(rs.getString("category"));
+                    profs.add(pr);
+                }
+                return profs;           
+            } catch (SQLException ex) {
+                Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
+            } 
         
       return null;
     }

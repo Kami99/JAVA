@@ -46,4 +46,7 @@ public class GestionProf implements IGestionProf {
     public ArrayList<Professeur> filterByclasse(String classe){
         return profDao.selectByCLasse(classe);
     }
+        public ArrayList<Professeur> filterByAnnee(int annee){
+        return profDao.selectBy(annee);
+    }
 }

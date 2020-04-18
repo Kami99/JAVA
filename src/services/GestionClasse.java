@@ -27,5 +27,6 @@ public class GestionClasse {
     public ArrayList<Classe> listerCLasse() {
         return classeDao.selectAll();
     }
+
     
 }

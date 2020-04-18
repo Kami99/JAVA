@@ -131,7 +131,7 @@ public class ListerProfesseurController implements Initializable {
        ArrayList<Professeur> pList= new ArrayList<>();
         String classe= cmb_classeFilter.getValue();
         ArrayList<Professeur> resultProf = gp1.filterByclasse(classe);
-        System.out.println("Ici resul "+resultProf);
+        System.out.println(classeDao.selectBy(classe).getId());
         if(resultProf!=null){
             donneeProfesseur.addAll(resultProf);
             tv_Professeur.setItems(donneeProfesseur);
@@ -144,6 +144,19 @@ public class ListerProfesseurController implements Initializable {
     
     @FXML
     private void handleFilterYear(ActionEvent event) {
+       ObservableList<Professeur> donneeProfesseur = FXCollections.observableArrayList();
+       ArrayList<Professeur> pList= new ArrayList<>();
+        int year= Integer.parseInt(txt_anneeFilter.getText());
+        ArrayList<Professeur> resultProf = gp.filterByAnnee(year);
+        System.out.println(year);
+        if(resultProf!=null){
+            donneeProfesseur.addAll(resultProf);
+            tv_Professeur.setItems(donneeProfesseur);
+            tv_Professeur.refresh();
+            System.out.println(resultProf);
+
+        } 
+
     }
 
 

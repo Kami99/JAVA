@@ -22,8 +22,7 @@ public interface IDao<T, T1>{
     public ArrayList<T> selectAll();
     public T selectById(int id);
     public T selectBy(String field);  
-    public T selectBy(String classe, int annee);    
-    public T selectBy(int annee);    
+    public ArrayList<T>selectBy(int annee);    
     public T selectBy(String numero, String classe);   
     public T selectBy(String numero, String nom, String prenom); 
 

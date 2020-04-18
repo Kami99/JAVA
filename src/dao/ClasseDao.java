@@ -22,7 +22,7 @@ import modeles.Personne;
  */
 public class ClasseDao implements IDao<Classe, Personne> {
 private final String SQL_ALL="Select * From class ";
-private final String SQL_BY_ID="Select * From class where wording = ?";
+private final String SQL_BY="Select * From class where wording = ? ";
 
     
     private MysqlDB mysql;
@@ -98,7 +98,7 @@ private final String SQL_INSERT="INSERT INTO `class` (`wording`, `statement`) VA
     public Classe selectBy(String field) {
      Classe cl= new Classe();
         try {
-                mysql.initPS(field);
+                mysql.initPS(SQL_BY);
                 mysql.getPstm().setString(1, field);
                 ResultSet rs=mysql.executeSelect();
                 if(rs.first()){
@@ -112,14 +112,8 @@ private final String SQL_INSERT="INSERT INTO `class` (`wording`, `statement`) VA
             } 
                return cl;         
     }
-
     @Override
-    public Classe selectBy(String classe, int annee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Classe selectBy(int annee) {
+    public  ArrayList<Classe> selectBy(int annee) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
