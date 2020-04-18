@@ -25,12 +25,14 @@ private final String SQL_ALL="SELECT * FROM `person` WHERE `category` = \"Profes
 private final String SQL_INSERT="INSERT INTO `class` (`wording`, `statement`) VALUES ( ?, ?);";
 private final String SQL_BY="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `numero` = ? ";
 private final String SQL_CLASS_FILTER="SELECT `firstname`, `lastname`, `category`, `wording` FROM `person`, `detail`, `class` WHERE 1 = class.id";     
-private final String SQL_YEAR_FILTER="SELECT `firstname`, `lastname`, `category`, `wording` FROM `person`, `detail`, `class` WHERE ? = year";     
 private final String SQL_ID="SELECT * FROM `person` WHERE `id` = ? ";
 private ClasseDao classeDao;
+    private MysqlDB mysql;
+
 
     public ProfDao() {
-                     classeDao=new ClasseDao();
+        classeDao=new ClasseDao();
+        mysql=new MysqlDB();
     }
 
 
@@ -61,36 +63,32 @@ ArrayList<Professeur> profs = new ArrayList<>();
 
     @Override
     public ArrayList<Professeur> selectAll() {
-       try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection cnx=DriverManager.getConnection("jdbc:mysql://localhost:3306/school_management", "root", "");
-                PreparedStatement ps=cnx.prepareStatement(SQL_ALL);
-                ResultSet rs=ps.executeQuery();
-                while(rs.next()){
-                    Professeur pr= new Professeur();
-                    pr.setNom(rs.getString("firstname"));   
-                    pr.setPrenom(rs.getString("lastname"));     
+          try {
+        mysql.initPS(SQL_ALL);
+       
+       ResultSet rs =mysql.executeSelect();
+        while(rs.next()){
+            Professeur pr= new Professeur();
+            pr.setId(rs.getInt("id"));         
+            pr.setNom(rs.getString("firstname"));  
+            pr.setPrenom(rs.getString("lastname"));   
+            pr.setCategory(rs.getString("category"));
+            pr.setNumero(rs.getString("numero"));
 
-                    profs.add(pr);
-                }
-                
-                return profs;
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
-            }     
-                return null;
+            profs.add(pr);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        return profs;
     }
 
     @Override
     public Professeur selectById(int id) {
         try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection cnx=DriverManager.getConnection("jdbc:mysql://localhost:3306/school_management", "root", "");
-                PreparedStatement ps=cnx.prepareStatement(SQL_ID);
-                ps.setInt(2, id);
-                ResultSet rs=ps.executeQuery();
+                mysql.initPS(SQL_ID);
+                mysql.getPstm().setInt(1, id);
+                ResultSet rs = mysql.executeSelect();
                 Professeur pr= new Professeur();
                 if(rs.first()){
                     pr.setId(rs.getInt("id"));         
@@ -103,8 +101,6 @@ ArrayList<Professeur> profs = new ArrayList<>();
                 if(pr!=null){
                     return pr;
                 }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
             }        
@@ -115,11 +111,9 @@ ArrayList<Professeur> profs = new ArrayList<>();
     @Override
     public Professeur selectBy(String field) {
       try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection cnx=DriverManager.getConnection("jdbc:mysql://localhost:3306/school_management", "root", "");
-                PreparedStatement ps=cnx.prepareStatement(SQL_BY);
-                ps.setString(1, field);
-                ResultSet rs=ps.executeQuery();
+                mysql.initPS(SQL_BY);
+                mysql.getPstm().setString(1, field);
+                ResultSet rs=mysql.executeSelect();
                 Professeur pr= new Professeur();
                 if(rs.first()){
                     pr.setId(rs.getInt("id"));         
@@ -132,8 +126,6 @@ ArrayList<Professeur> profs = new ArrayList<>();
                 if(pr!=null){
                     return pr;
                 }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
             }        

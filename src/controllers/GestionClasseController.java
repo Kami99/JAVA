@@ -73,8 +73,7 @@ public class GestionClasseController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<Classe> donnee = FXCollections.observableArrayList();
-        // TODO
-              
+        // TODO            
         tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         tv_libelle.setCellValueFactory(new PropertyValueFactory<>("libelle"));
         donnee.addAll(gc.listerCLasse());
@@ -85,17 +84,13 @@ public class GestionClasseController implements Initializable {
     }
     @FXML
     private void handleAjouterClasse(ActionEvent event) { 
-        /*ObservableList<Classe> donnee = FXCollections.observableArrayList();
-        System.out.println("classe ajout");
-        String libelle = txt_libelle.getText();        
+        ObservableList<Classe> donnee = FXCollections.observableArrayList();
+        String libelle = txt_libelle.getText(); 
         Classe classe = new Classe(libelle);
         gc.addClasse(classe);
-        donnee.addAll(gc.listerCLasse());*/
-        System.out.println(gc.listerCLasse().size());
-        /*tv_classe.setItems(donnee);
-        tv_classe.refresh();
-        */
-    }
+        donnee.addAll(gc.listerCLasse());
+        tv_classe.setItems(donnee);
+        tv_classe.refresh();    }
 
     @FXML
     private void handlechangeViewHome(ActionEvent event) throws IOException {

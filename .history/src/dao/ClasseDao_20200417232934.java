@@ -32,19 +32,22 @@ private final String SQL_BY_ID="Select * From class where wording = ?";
     }
 
 private final String SQL_INSERT="INSERT INTO `class` (`wording`, `statement`) VALUES ( ?, ?);";
+ArrayList<Classe> classes = new ArrayList<>();
 
 
     @Override
     public int create(Classe obj) {
        int result=0;
         try {
-        mysql.initPS(SQL_INSERT);
+        Class.forName("com.mysql.jdbc.Driver");
         
-        mysql.getPstm().setString(1, obj.getLibelle());  
-        mysql.getPstm().setBoolean(2, obj.isStatement());
-        int rs =mysql.executeMaj();
+        ps.setString(1, obj.getLibelle());  
+        ps.setBoolean(2, obj.isStatement());
+        result=ps.executeUpdate();
 
 
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
     } catch (SQLException ex) {
         Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -70,22 +73,28 @@ private final String SQL_INSERT="INSERT INTO `class` (`wording`, `statement`) VA
 
     @Override
     public ArrayList<Classe> selectAll() {
-            ArrayList<Classe> classes=null;
     try {
-    classes=new ArrayList<Classe>(); 
-        mysql.initPS(SQL_ALL);
-       
-       ResultSet rs =mysql.executeSelect();
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection cnx=DriverManager.getConnection("jdbc:mysql://localhost:3306/school_management", "root", "");
+        PreparedStatement ps=cnx.prepareStatement(SQL_ALL);
+        ResultSet rs=ps.executeQuery();
         while(rs.next()){
             Classe cl= new Classe();
             cl.setId(rs.getInt("id"));         
             cl.setLibelle(rs.getString("wording"));
             classes.add(cl);
+
+        
         }
+        if(classes != null){
+        return classes;
+        }
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
     } catch (SQLException ex) {
         Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
     }     
-               return classes; 
+        return null;
     }
 
     @Override
@@ -96,21 +105,26 @@ private final String SQL_INSERT="INSERT INTO `class` (`wording`, `statement`) VA
 
     @Override
     public Classe selectBy(String field) {
-     Classe cl= new Classe();
-        try {
-                mysql.initPS(field);
-                mysql.getPstm().setString(1, field);
-                ResultSet rs=mysql.executeSelect();
+           try {
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection cnx=DriverManager.getConnection("jdbc:mysql://localhost:3306/school_management", "root", "");
+                PreparedStatement ps=cnx.prepareStatement(SQL_BY_ID);
+                ps.setString(1, field);
+                ResultSet rs=ps.executeQuery();
+                Classe cl= new Classe();
                 if(rs.first()){
                     cl.setId(rs.getInt("id")); 
                     cl.setLibelle(rs.getString("wording"));        
                     }
-                return cl;
-
+                if(cl!=null){
+                    return cl;
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-               return cl;         
+            }     
+    return null;
     }
 
     @Override

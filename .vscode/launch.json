@@ -1,0 +1,28 @@
+{
+    // Utilisez IntelliSense pour en savoir plus sur les attributs possibles.
+    // Pointez pour afficher la description des attributs existants.
+    // Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<EtudiantsManageApp_c8f8e30c>",
+            "request": "launch",
+            "mainClass": "application.Main",
+            "projectName": "EtudiantsManageApp_c8f8e30c"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-NewMain<EtudiantsManageApp_c8f8e30c>",
+            "request": "launch",
+            "mainClass": "dao.NewMain",
+            "projectName": "EtudiantsManageApp_c8f8e30c"
+        }
+    ]
+}

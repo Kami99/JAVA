@@ -21,8 +21,7 @@ public class GestionClasse {
     }
 
     public int addClasse(Classe c) {
-        classeDao.create(c);
-        return 1;
+        return classeDao.create(c);
     }
 
     public ArrayList<Classe> listerCLasse() {
