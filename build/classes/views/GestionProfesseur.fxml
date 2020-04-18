@@ -23,7 +23,7 @@
             <Font name="Cambria" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="btn_enregistrer" layoutX="1049.0" layoutY="645.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="159.0" style="-fx-background-color: #2cc369; -fx-border-radius: 8px;" text="Enregistrer">
+      <Button fx:id="btn_enregistrer" layoutX="1049.0" layoutY="645.0" mnemonicParsing="false" onAction="#handleEnregistrer" prefHeight="52.0" prefWidth="159.0" style="-fx-background-color: #2cc369; -fx-border-radius: 8px;" text="Enregistrer">
          <font>
             <Font name="Bell MT" size="24.0" />
          </font>

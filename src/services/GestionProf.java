@@ -27,8 +27,19 @@ public class GestionProf implements IGestionProf {
     public Professeur rechercherProf(String numero) {
         return profDao.selectBy(numero);
     }
+    public Professeur rechercherProf(String numero, String nom, String prenom) {
+        return profDao.selectBy(numero, nom, prenom);
+    }
     public Professeur addProfesseur(Professeur p) {
         return p;
+    }
+    //Si le prof existe
+    public int addProfesseur(Detail detail, Professeur p, String classe) {
+        return profDao.create(detail, p, classe);
+    }
+    //Si lle prof n'existe pas
+    public int addProfesseur(Professeur prof, Detail detail, String classe) {
+        return profDao.create(prof, detail, classe);
     }
 
     @Override
@@ -36,6 +47,7 @@ public class GestionProf implements IGestionProf {
         Detail detail = new Detail(annee,p,c);
         p.getDetails().add(detail);
     }
+    
 
    
     

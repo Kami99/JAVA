@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -21,6 +22,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import modeles.Classe;
+import modeles.Detail;
+import modeles.Professeur;
 import services.FunctionController;
 import services.GestionClasse;
 import services.GestionProf;
@@ -43,11 +46,11 @@ public class GestionProfesseurController implements Initializable {
     GestionProf gp = new GestionProf();   
     GestionClasse gc = new GestionClasse();
     @FXML
-    private TextField txt_nom;
+    private TextField txt_nom=null;
     @FXML
-    private TextField txt_numero;
+    private TextField txt_numero=null;
     @FXML
-    private TextField txt_prenom;
+    private TextField txt_prenom=null;
     @FXML
     private Button btn_home;
     @FXML
@@ -66,6 +69,7 @@ public class GestionProfesseurController implements Initializable {
     FunctionController function= new FunctionController();
     @FXML
     private Button btn_searchProf;
+    private Professeur pr;
 
 
 
@@ -74,8 +78,9 @@ public class GestionProfesseurController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    ObservableList<Classe> donnee = FXCollections.observableArrayList();
-    
+             for (Classe classe : gc.listerCLasse()) {
+                    cmb_classe.getItems().add(classe.getLibelle());
+        }
     
 
         
@@ -119,6 +124,43 @@ public class GestionProfesseurController implements Initializable {
 
     @FXML
     private void handleSearch(ActionEvent event) {
+        Professeur pr= new Professeur();
+        pr= gp.rechercherProf(txt_numero.getText(), txt_nom.getText(), txt_prenom.getText());
+        if (pr!=null){
+        txt_numero.setText(pr.getNumero()); 
+        txt_nom.setText(pr.getNom());
+        txt_prenom.setText(pr.getPrenom());
+    }
+    ObservableList<Classe> donnee = FXCollections.observableArrayList();
+
+    }
+
+    @FXML
+    private void handleEnregistrer(ActionEvent event) {
+        int last_id;
+        if (pr==null){
+            pr= new Professeur();
+            pr.setNumero(txt_numero.getText());
+            pr.setNom(txt_nom.getText());
+            pr.setPrenom(txt_prenom.getText());
+            int year= Integer.parseInt(txt_annee.getText());
+            Detail detail= new Detail(year);
+            String classe= cmb_classe.getValue();
+            last_id=gp.addProfesseur(pr, detail, classe);
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+           alert.setContentText("Info Enregisté avec succees"+last_id);
+           alert.showAndWait();
+        }
+        else{
+
+            int year= Integer.parseInt(txt_annee.getText());
+            Detail detail= new Detail(year);
+            String classe= cmb_classe.getValue();
+            last_id=gp.addProfesseur(detail, pr, classe);     
+           Alert alert=new Alert(Alert.AlertType.INFORMATION);
+           alert.setContentText("Info Enregisté avec succees"+last_id);
+           alert.showAndWait();
+        }
     }
 
     

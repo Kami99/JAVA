@@ -21,7 +21,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         
-            Parent root = FXMLLoader.load(getClass().getResource("/views/ListerProfesseur.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/views/GestionProfesseur.fxml"));
             stage.getIcons().add(new Image("images/Logo.jpeg"));        
             stage.setTitle("School Management");   
             stage.isResizable();       

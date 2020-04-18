@@ -14,25 +14,29 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modeles.Classe;
-import modeles.Detail;
 import modeles.Professeur;
 
 /**
  *
  * @author BETOE CHARLENE
  */
-public class ProfDao  implements IDao<Professeur, Detail> {
+public class ProfDao  implements IDao<Professeur, Classe> {
 private final String SQL_ALL="SELECT * FROM `person` WHERE `category` = \"Professeur\"";
-private final String SQL_INSERT="INSERT INTO `person` (`id`, `firstname`, `lastname`, `category`, `birthday`, `grade`, `numero`, `statement`) VALUES (NULL, ?,?,\"Professeur\", NULL, ?, ?,?);";
-private final String SQL_INSERT_DETAIL="INSERT INTO `detail` (`id`, `prof_id`, `class_id`, `year`) VALUES (NULL, ?, ?, ?);";
-private final String SQL_BY="SELECT * FROM `person` WHERE `category` = \"Professeur\" AND `numero` = ? ";
-private final String SQL_BY_FNUP="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `numero` = ? AND `lastname` = ?  ";
-private final String SQL_BY_ALL_FIELDS="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `numero` = ? AND `lastname` = ?  and `firstname` = ? ";
-private final String SQL_BY_NP="SELECT * FROM `person` WHERE `category` = \"Professeur\" and  firstname = ? AND lastname = ? ";
-private final String SQL_BY_NN="SELECT * FROM `person` WHERE `category` = \"Professeur\" and  firstname = ? AND numero = ? ";
-private final String SQL_BY_NOM="SELECT * FROM `person` WHERE `category` = \"Professeur\" and firstname = ?";
-private final String SQL_BY_NUM="SELECT * FROM `person` WHERE `category` = \"Professeur\" and numero = ?";
-private final String SQL_BY_PRENOM="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `lastname` = ? ";
+private final String SQL_INSERT="INSERT INTO `class` (`wording`, `statement`) VALUES ( ?, ?);";
+private final String SQL_BY="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `numero` = ? ";
+private final String SQL_BY_FNUP="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `numero` = ? and `prenom` = ?  ";
+private final String SQL_BY_ALL_FIELDS="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `numero` = ? and `prenom` = ?  and `nom` = ? ";
+private final String SQL_BY_NP="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `nom` = ? and `prenom` = ? ";
+private final String SQL_BY_NN="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `nom` = ? and `numero` = ? ";
+private final String SQL_BY_NOM="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `nom` = ?";
+private final String SQL_BY_NUM="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `numero` = ?";
+private final String SQL_BY_PRENOM="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `prenom` = ? ";
+
+
+
+
+
+
 private final String SQL_CLASS_FILTER="SELECT `firstname`, `lastname`, `category`, `grade` , `numero` FROM `person`, `detail` WHERE ? = detail.class_id ";     
 private final String SQL_ANNEE_FILTER="SELECT `firstname`, `lastname`, `category`, `grade` , `numero` FROM `person`, `detail` WHERE `year` = ? AND detail.prof_id=person.id";     
 private final String SQL_ID="SELECT * FROM `person` WHERE `id` = ? ";
@@ -46,67 +50,13 @@ private MysqlDB mysql;
     }
     @Override
     public int create(Professeur obj) {
-         int result=0;
-        try {
-              mysql.initPS(SQL_INSERT);
-              mysql.getPstm().setString(1, obj.getNom());
-              mysql.getPstm().setString(2, obj.getPrenom());
-              mysql.getPstm().setString(3, obj.getGrade());   
-              mysql.getPstm().setString(4, obj.getNumero());  
-              mysql.getPstm().setBoolean(5, obj.isStatement());
-             //5 Execution de la requete
-              mysql.executeMaj();
-              //REturn ID client ID
-              ResultSet rs=mysql.getPstm().getGeneratedKeys();
-              if(rs.first())  result=rs.getInt(1);
-             
-        } catch (SQLException ex) {
-            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
-        }     
-        return result;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    //Si le Prof n'existe pas
-    public int create(Professeur obj, Detail obj2, String classe) {
-        int idPr=this.create(obj);       
-                 int result=0;
-        try {
-              mysql.initPS(SQL_INSERT_DETAIL);
-              mysql.getPstm().setInt(1, idPr);
-              mysql.getPstm().setInt(2,classeDao.selectBy(classe).getId());
-              mysql.getPstm().setInt(3, obj2.getAnnee()); 
-             //5 Execution de la requete
-              mysql.executeMaj();
-              //REturn ID client ID
-              ResultSet rs=mysql.getPstm().getGeneratedKeys();
-              if(rs.first())  result=rs.getInt(1);    
-        } catch (SQLException ex) {
-            Logger.getLogger(Detail.class.getName()).log(Level.SEVERE, null, ex);
-        }     
-        return result;
- } 
-@Override
- public int create(Professeur obj, Detail obj2) {
-     return 0;
- }
- // Si le prof existe 
- public int create(Detail obj2, Professeur p, String classe) {
-    int result=0;
-        try {
-              mysql.initPS(SQL_INSERT);
-              mysql.getPstm().setInt(1, p.getId());
-              mysql.getPstm().setInt(2,classeDao.selectBy(classe).getId());
-              mysql.getPstm().setInt(3, obj2.getAnnee()); 
-              mysql.executeMaj();
-              //REturn ID client ID
-              ResultSet rs=mysql.getPstm().getGeneratedKeys();
-              if(rs.first())  result=rs.getInt(1);
-             
-        } catch (SQLException ex) {
-            Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
-        }     
-        return result;
- } 
+
+    @Override
+    public int create(Professeur obj, Classe obj2) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
     public boolean update(Professeur obj) {
@@ -212,12 +162,10 @@ private MysqlDB mysql;
             }        
     return null;
     }
-     
-    public Professeur selectBy2(String field, String fields2, String Request) {
+    public Professeur selectBy(String field, String fields2, String Request) {
       try {
                 mysql.initPS(Request);
-                mysql.getPstm().setString(1, field);  
-                mysql.getPstm().setString(2, fields2);
+                mysql.getPstm().setString(1, field);
                 ResultSet rs=mysql.executeSelect();
                 Professeur pr= new Professeur();
                 if(rs.first()){
@@ -293,31 +241,32 @@ private MysqlDB mysql;
     public Professeur selectBy(String numero, String nom, String prenom) {  
         Professeur pr= new Professeur();
         if(numero != null){
-        return pr=this.selectBy(numero, SQL_BY_NUM);
+            pr=this.selectBy(numero, SQL_BY_NUM);
         }
         if(prenom != null){
-        return pr=this.selectBy(prenom, SQL_BY_PRENOM);
+            pr=this.selectBy(prenom, SQL_BY_PRENOM);
         }
         if(nom != null){
-        return pr=this.selectBy(nom, SQL_BY_NOM);
+            pr=this.selectBy(nom, SQL_BY_NOM);
         }
         if(numero != null && nom != null && prenom == null){
-        return pr=this.selectBy2(nom,numero, SQL_BY_NN);
+        
         }
         if(numero != null && prenom != null && nom == null ){
-        return pr=this.selectBy2(numero,prenom, SQL_BY_FNUP);
+        
         }
         if(prenom != null && nom != null && numero == null ){
-        return pr=this.selectBy2(nom,prenom, SQL_BY_NP);
+        
         }
         if(prenom != null && nom != null && numero != null)
         { 
                     try {
                 mysql.initPS(SQL_BY);
                 mysql.getPstm().setString(1, numero);
-                mysql.getPstm().setString(2, prenom);
-                mysql.getPstm().setString(3, nom);
+                mysql.getPstm().setString(1, field);
+                mysql.getPstm().setString(1, field);
                 ResultSet rs=mysql.executeSelect();
+                Professeur pr= new Professeur();
                 if(rs.first()){
                     pr.setId(rs.getInt("id"));         
                     pr.setNom(rs.getString("firstname"));   
@@ -326,13 +275,16 @@ private MysqlDB mysql;
                     pr.setGrade(rs.getString("grade"));  
                     pr.setCategory(rs.getString("category"));
                 }
-                return pr;
+                if(pr!=null){
+                    return pr;
+                }
             } catch (SQLException ex) {
-                Logger.getLogger(Professeur.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ClasseDao.class.getName()).log(Level.SEVERE, null, ex);
             }        
+    return null;
         }
     return null;
+        
    }
-
     
 }

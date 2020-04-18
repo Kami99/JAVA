@@ -64,10 +64,8 @@ public class Professeur extends Personne{
         this.details = details;
     }
      public String toString() {
-        return  "numero= " + numero + " nom=" + nom + " prenom=" + prenom+ " Category = "+category;
+        return  "numero= " + numero + " nom=" + nom + " prenom=" + prenom+ " Category = "+getCategory();
     }   
 
-    public void setCategory(String category) {
-        this.category=category;
-    }
+
 }

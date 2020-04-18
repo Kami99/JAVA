@@ -13,6 +13,20 @@ import java.time.LocalDate;
  * @author BETOE CHARLENE
  */
 public class Personne {
+
+    /**
+     * @return the category
+     */
+    public String getCategory() {
+        return category;
+    }
+
+    /**
+     * @param category the category to set
+     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
     public int id; 
     public String numero;
     public String nom;  

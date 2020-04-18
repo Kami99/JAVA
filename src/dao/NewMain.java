@@ -11,7 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modeles.Classe;
+import modeles.Professeur;
+import modeles.Detail;
+
 
 /**
  *
@@ -23,32 +28,31 @@ public class NewMain {
      * @param args the command line arguments
      */
     private final String SQL_ALL="SELECT * FROM `class`";
+private final String SQL_INSERT="INSERT INTO `class` (`wording`, `statement`) VALUES ( ?, ?);";
+private final String SQL_BY="SELECT * FROM `person` WHERE `category` = \"Professeur\" AND `numero` = ? ";
+private final String SQL_BY_FNUP="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `numero` = ? AND `lastname` = ?  ";
+private final String SQL_BY_ALL_FIELDS="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `numero` = ? AND `lastname` = ?  and `firstname` = ? ";
+private final String SQL_BY_NP="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `firstname` = ? AND `lastname` = ? ";
+private final String SQL_BY_NN="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `firstname` = ? AND `numero` = ? ";
+private final String SQL_BY_NOM="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `firstname` = ?";
+private final String SQL_BY_NUM="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `numero` = ?";
+private final String SQL_BY_PRENOM="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `lastname` = ? ";
+private MysqlDB mysql;
+
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-         ArrayList<Classe> classes = null;
-
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection cnx=DriverManager.getConnection("jdbc:mysql://localhost:3306/school_management", "root", "");
-        PreparedStatement ps=cnx.prepareStatement("SELECT * FROM `class`");
-        ResultSet rs = ps.executeQuery();
-        System.out.println(rs);
-        while(rs.next()){
-            System.out.println(rs.getInt("id"));    
-            System.out.println(rs.getString("wording"));   
+     Classe cl= new Classe("Mae");     
+     Detail detail= new Detail(2017, null, cl);
+     System.out.println(detail.getClasse().getId());
 
 
-        }
-        /*
-        while(rs.next()){
-            Classe cl= new Classe();
-            cl.setId(rs.getInt("id"));   
-            cl.setLibelle(rs.getString("wording"));
-            classes.add(cl);
-                    }
-        if(classes!=null){
-            System.out.println(classes);
-        }*/
-          
+     
 
     }
-    
 }
+        
+       
+
+
+    
+

@@ -19,6 +19,12 @@ public class Detail {
         this.prof = prof;
         this.classe = classe;
     }
+    public Detail() {
+
+    }
+    public Detail(int annee) {
+
+    }
 
     public int getAnnee() {
         return annee;
