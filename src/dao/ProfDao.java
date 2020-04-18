@@ -23,7 +23,7 @@ import modeles.Professeur;
  */
 public class ProfDao  implements IDao<Professeur, Detail> {
 private final String SQL_ALL="SELECT * FROM `person` WHERE `category` = \"Professeur\"";
-private final String SQL_INSERT="INSERT INTO `person` (`id`, `firstname`, `lastname`, `category`, `birthday`, `grade`, `numero`, `statement`) VALUES (NULL, ?,?,\"Professeur\", NULL, ?, ?,?);";
+private final String SQL_INSERT="INSERT INTO `person` (`id`, `firstname`, `lastname`, `category`, `birthday`, `grade`,`tuteur`, `numero`, `statement`) VALUES (NULL, ?,?,\"Professeur\", NULL, ?, NULL, ?,?);";
 private final String SQL_INSERT_DETAIL="INSERT INTO `detail` (`id`, `prof_id`, `class_id`, `year`) VALUES (NULL, ?, ?, ?);";
 private final String SQL_BY="SELECT * FROM `person` WHERE `category` = \"Professeur\" AND `numero` = ? ";
 private final String SQL_BY_FNUP="SELECT * FROM `person` WHERE `category` = \"Professeur\" and `numero` = ? AND `lastname` = ?  ";

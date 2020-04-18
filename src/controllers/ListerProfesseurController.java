@@ -57,18 +57,9 @@ public class ListerProfesseurController implements Initializable {
     FunctionController function= new FunctionController();
 
     GestionProf gp=new GestionProf();    
-    GestionProf gp1=new GestionProf();       
     GestionClasse gc=new GestionClasse();
     ClasseDao classeDao=new ClasseDao();   
-   
-
-    Professeur p=new Professeur("Karim", "Ndong", "4");  
-    Professeur p2=new Professeur("lacrim", "Algerien", "14");  
-    Professeur p3=new Professeur("Niro", "92i", "8");
-
-
     
-    ServiceDetail sd= new ServiceDetail();
     @FXML
     private Button btn_home;
     @FXML
@@ -96,21 +87,33 @@ public class ListerProfesseurController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     ObservableList<Professeur> donneeProfesseur = FXCollections.observableArrayList();
+    ObservableList<Classe> donnee = FXCollections.observableArrayList();
+
+    
         for (Classe classe : gc.listerCLasse()) {
                     cmb_classeFilter.getItems().add(classe.getLibelle());
         }
     
     tv_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
     tv_prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+    tv_classeLibelle.setCellValueFactory(new PropertyValueFactory<>("libelle"));
+
     donneeProfesseur.addAll(gp.listerProfs());
     tv_Professeur.setItems(donneeProfesseur);
     tv_Professeur.refresh();
     System.out.println(gc.listerCLasse());
     System.out.println(tv_Professeur.getItems());
+    donnee.addAll(gc.listerCLasse());
+    tv_classe.setItems(donnee);   
+    tv_classe.refresh();
+
+
     }    
     @FXML
     private void handleSearchProfesseur(ActionEvent event){
-        ObservableList<Professeur> donneeProfesseur = FXCollections.observableArrayList();
+        ObservableList<Professeur> donneeProfesseur = FXCollections.observableArrayList();  
+        ObservableList<Classe> donnee = FXCollections.observableArrayList();
+
         String numero= txt_numeroFilter.getText();
         Professeur resultProf = gp.rechercherProf(numero);
         if(resultProf!=null){
@@ -118,8 +121,9 @@ public class ListerProfesseurController implements Initializable {
             tv_Professeur.setItems(donneeProfesseur);
             tv_Professeur.refresh();
             System.out.println(resultProf);
-
         }
+        
+        
         
 
     }
@@ -128,16 +132,20 @@ public class ListerProfesseurController implements Initializable {
     @FXML
     private void handleClassFilter(ActionEvent event) {
        ObservableList<Professeur> donneeProfesseur = FXCollections.observableArrayList();
+       ObservableList<Classe> donnee = FXCollections.observableArrayList();
        ArrayList<Professeur> pList= new ArrayList<>();
         String classe= cmb_classeFilter.getValue();
-        ArrayList<Professeur> resultProf = gp1.filterByclasse(classe);
+        ArrayList<Professeur> resultProf = gp.filterByclasse(classe);
         System.out.println(classeDao.selectBy(classe).getId());
         if(resultProf!=null){
             donneeProfesseur.addAll(resultProf);
             tv_Professeur.setItems(donneeProfesseur);
             tv_Professeur.refresh();
             System.out.println(resultProf);
-
+        
+            donnee.add(classeDao.selectBy(classe));
+            tv_classe.setItems(donnee);
+            tv_classe.refresh();
         } 
 
     }

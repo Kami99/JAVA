@@ -148,7 +148,7 @@ public class GestionProfesseurController implements Initializable {
             String classe= cmb_classe.getValue();
             last_id=gp.addProfesseur(pr, detail, classe);
             Alert alert=new Alert(Alert.AlertType.INFORMATION);
-           alert.setContentText("Info Enregisté avec succees"+last_id);
+           alert.setContentText("Info Enregisté avec succees "+last_id);
            alert.showAndWait();
         }
         else{
@@ -158,7 +158,7 @@ public class GestionProfesseurController implements Initializable {
             String classe= cmb_classe.getValue();
             last_id=gp.addProfesseur(detail, pr, classe);     
            Alert alert=new Alert(Alert.AlertType.INFORMATION);
-           alert.setContentText("Info Enregisté avec succees"+last_id);
+           alert.setContentText("Info Enregisté avec succees "+last_id);
            alert.showAndWait();
         }
     }

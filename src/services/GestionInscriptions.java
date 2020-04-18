@@ -5,6 +5,7 @@
  */
 package services;
 
+import dao.InscriptionDao;
 import java.util.ArrayList;
 import modeles.Classe;
 import modeles.Etudiant;
@@ -15,14 +16,24 @@ import modeles.Inscription;
  * @author hp
  */
 public class GestionInscriptions implements IGestionInscriptions {
+
+
+private InscriptionDao inscriptionDao;
+    public GestionInscriptions() {
+                        inscriptionDao=new InscriptionDao();     
+    }
+
     ArrayList<Inscription> bd= new ArrayList<>();
+
 
     @Override
     public Inscription addInscription(Inscription i) {
         bd.add(i);
         return i;
     }
-
+    public int addInscription(Etudiant obj, Inscription obj2, String classe) {
+        return inscriptionDao.create(obj, obj2, classe);
+    }
     @Override
     public Etudiant rechercherEtudiant(String numero) {
         for(Inscription i: bd){
@@ -64,19 +75,11 @@ public class GestionInscriptions implements IGestionInscriptions {
 
     @Override
     public ArrayList<Inscription> listerInscriptions(Classe classe, int annee) {
-        ArrayList<Inscription> resultat = new ArrayList<>();
-        
-        ArrayList<Inscription> listerByClasse = listerInscriptions(classe);
-        if(listerByClasse != null){
-            for(Inscription i : listerByClasse){
-            if(i.getAnnee()== annee){
-                resultat.add(i);
-        
-            }
-        }
-        }
-        return resultat;
+    return null;
    
+    }
+    public ArrayList<Etudiant> listerEtudiants() {
+        return inscriptionDao.selectAll(); 
     }
     
 }

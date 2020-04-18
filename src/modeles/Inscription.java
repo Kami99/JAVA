@@ -6,14 +6,31 @@
 package modeles;
 
 
+
 /**
  *
  * @author BETOE CHARLENE
  */
 public class Inscription {
     protected int annee;
+
+    public Inscription(int annee) {
+    }
     protected Etudiant etudiant;
     protected Classe classe;
+    protected boolean statement=true;
+
+
+
+    public boolean isStatement() {
+        return statement;
+    }
+
+    public void setStatement(boolean statement) {
+        this.statement = statement;
+    }
+
+
 
     public Inscription(int annee, Etudiant etudiant, Classe classe) {
         this.annee = annee;

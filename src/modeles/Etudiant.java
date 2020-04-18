@@ -19,6 +19,9 @@ public class Etudiant extends Personne{
         
     }
 
+    public Etudiant() {
+    }
+
     /**
      * @return the tuteur
      */
